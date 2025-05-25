@@ -16,19 +16,18 @@ const generator = require("@babel/generator").default;
 const NodePath = require("@babel/traverse").NodePath;
 
 
-class DyAst {
-    constructor(folder, filename, outputName) {
-        this.ast = parser.parse(files.readFileSync(`./${folder}/${filename}.js`, "utf-8"));
-        this.folder = folder;
+class Bogus {
+    constructor(filename, outputName) {
+        this.ast = parser.parse(files.readFileSync(`./${filename}.js`, "utf-8"));
         this.outputName = outputName;
         this.mainSwitchValue = '';
         this.mainFunc = ''
     }
 
-    save_file(ast, outputName) {
-        const {code: newCode} = generator(ast);
+    save_file() {
+        const {code: newCode} = generator(this.ast);
 
-        files.writeFileSync(`./${this.folder}/${outputName}`, newCode, "utf-8");
+        files.writeFileSync(`./${this.outputName}.js`, newCode, "utf-8");
     }
 
     lll() {
@@ -348,15 +347,15 @@ class DyAst {
         this.pcp();
         this.jkl();
         this.wbg();
-        this.save_file(this.ast, this.outputName)
+        this.save_file()
     }
 }
 
 
 console.time('处理完毕，耗时');
 
-let dy_ast = new DyAst("aBogus", "v_10119", "decode.js");
-dy_ast.start();
+let ab_ast = new Bogus("bdms", "decode");
+ab_ast.start();
 
 console.timeEnd('处理完毕，耗时');
 
