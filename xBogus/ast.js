@@ -245,18 +245,12 @@ class Bogus {
 
     final_code() {
         traverse(this.ast, {
-            TryStatement: (path) => {
-                let body = path.node;
-                path.replaceWithMultiple(body.block.body)
-            }
-        });
-        traverse(this.ast, {
             ForStatement: (path) => {
                 let {init, test, body} = path.node;
                 if (!types.isVariableDeclaration(init)) return;
                 if (test !== null) return;
-                if (!types.isVariableDeclaration(body.body[0])) return;
-                this.varName = body.body[0].declarations[0].id.name;
+                if (!types.isVariableDeclaration(body.body[0].block.body[0])) return;
+                this.varName = body.body[0].block.body[0].declarations[0].id.name;
                 path.stop()
             }
         });
